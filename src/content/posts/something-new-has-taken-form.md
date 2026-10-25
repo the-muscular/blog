@@ -4,7 +4,7 @@ date: 2026-10-26
 topic: Journal
 doodle: envelope
 colour: seafoam
-draft: true
+draft: false
 ---
 It's me in another form. It's me in my thirties. Reshaping, reworking, and reinventing myself.
 
