@@ -1,0 +1,17 @@
+---
+import { coverSvg } from '../lib/doodles.mjs';
+
+interface Props {
+  topic: string;
+  doodle?: string;
+  colour?: string;
+  image?: string | null;
+  alt?: string;
+}
+const { topic, doodle, colour, image, alt = '' } = Astro.props;
+---
+<div class="cover">
+  {image
+    ? <img src={image} alt={alt} loading="lazy" />
+    : <Fragment set:html={coverSvg({ topic, doodle, colour })} />}
+</div>

@@ -1,0 +1,15 @@
+{
+  "title": "The Muscular",
+  "kicker": "A personal blog · Jakarta",
+  "intro": "Notes from my life: places I go, songs on repeat, films I can't stop talking about, the people I love, things I like, pages from my journal, and the occasional thought on politics.",
+  "author": "Anindita",
+  "bio": "I write here most Sundays, usually with coffee.",
+  "sticker": "new posts on Sundays ✶",
+  "socials": [
+    { "network": "instagram", "url": "https://instagram.com/yourname", "handle": "@yourname" },
+    { "network": "x", "url": "https://x.com/yourname", "handle": "@yourname" },
+    { "network": "linkedin", "url": "https://linkedin.com/in/yourname", "handle": "in/yourname" },
+    { "network": "pinterest", "url": "https://pinterest.com/yourname", "handle": "yourname" },
+    { "network": "email", "url": "mailto:hello@example.com", "handle": "Say hi" }
+  ]
+}

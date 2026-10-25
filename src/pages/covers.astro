@@ -1,0 +1,33 @@
+---
+// Reference sheet for picking a cover in Pages CMS. Not linked from the blog.
+import Base from '../layouts/Base.astro';
+import { doodles, doodleGroups, colours, topics, coverSvg } from '../lib/doodles.mjs';
+import { url } from '../lib/url.mjs';
+---
+<Base title="Cover library" description="All cover illustrations and colours." mode="post" noindex>
+  <a class="back" href={url('/')}>← Back to the blog</a>
+  <h1 class="page-h">Cover library</h1>
+  <p class="lede">
+    Every illustration and colour you can pick for a post's cover. Leave both empty in the editor and the post gets its
+    topic's default: {Object.entries(topics).map(([t, v]) => `${t} → ${doodles[v.doodle].name}`).join(', ')}.
+  </p>
+
+  <h2 class="group-name">Colours</h2>
+  <ul class="swatches">
+    {colours.map(([key, name]) => <li><span style={`background:var(--${key})`}></span>{name}</li>)}
+  </ul>
+
+  {doodleGroups.map(([group, keys]) => (
+    <>
+      <h2 class="group-name">{group}</h2>
+      <div class="thumbs">
+        {keys.map((k) => (
+          <figure class="thumb">
+            <div class="cover" set:html={coverSvg({ topic: 'Journal', doodle: k, colour: 'latte' })} />
+            <figcaption>{doodles[k].name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </>
+  ))}
+</Base>

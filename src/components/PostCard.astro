@@ -1,0 +1,21 @@
+---
+import Cover from './Cover.astro';
+import Chip from './Chip.astro';
+import { postUrl, formatDate, excerptOf, readTime, coverImage } from '../lib/posts.mjs';
+
+const { post, featured = false } = Astro.props;
+const { title, date, topic, doodle, colour, draft } = post.data;
+---
+<a class:list={['card', { featured }]} href={postUrl(post)} data-topic={topic}>
+  <Cover topic={topic} doodle={doodle} colour={colour} image={coverImage(post)} />
+  <div class="card-body">
+    {featured && <span class="new">latest ✶</span>}
+    <Chip topic={topic} />
+    <h3>{title}</h3>
+    <p>{excerptOf(post)}</p>
+    <div class="meta">
+      <span>{formatDate(date)}</span><span>{readTime(post)} read</span>
+      {draft && <span class="draft">draft</span>}
+    </div>
+  </div>
+</a>

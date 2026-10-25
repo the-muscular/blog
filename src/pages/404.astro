@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url.mjs';
+---
+<Base title="Page not found" mode="post" noindex>
+  <h1 class="page-h">This page wandered off.</h1>
+  <p class="lede">The link might be old, or the post may have moved.</p>
+  <a class="back" href={url('/')}>← Back to the blog</a>
+</Base>

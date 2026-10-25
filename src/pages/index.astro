@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import site from '../data/site.json';
+import { topicNames } from '../lib/doodles.mjs';
+import { getPosts } from '../lib/posts.mjs';
+
+const posts = await getPosts();
+const usedTopics = topicNames.filter((t) => posts.some((p) => p.data.topic === t));
+
+// The last word of the title gets the italic + squiggle treatment
+const words = site.title.trim().split(/\s+/);
+const lastWord = words.pop();
+---
+<Base>
+  <header class="head" slot="head">
+    {site.kicker && <p class="kicker">{site.kicker}</p>}
+    <h1 class="title">
+      {words.join(' ')}{words.length > 0 && ' '}<em>{lastWord}<svg class="squiggle" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 12 Q 20 2 38 12 T 74 12 T 110 12 T 146 12 T 182 12 T 218 12 T 254 12 T 298 10" /></svg></em>
+    </h1>
+    {site.intro && <p class="intro">{site.intro}</p>}
+  </header>
+
+  {posts.length === 0 ? (
+    <p class="empty">No posts yet. The first one is coming soon.</p>
+  ) : (
+    <>
+      {usedTopics.length > 1 && (
+        <div class="filters" role="group" aria-label="Filter posts by topic">
+          {['All', ...usedTopics].map((t) => (
+            <button type="button" data-topic={t} aria-pressed={t === 'All' ? 'true' : 'false'}>{t}</button>
+          ))}
+        </div>
+      )}
+      <div class="grid" data-filter="All">
+        {posts.map((post, i) => <PostCard post={post} featured={i === 0} />)}
+      </div>
+    </>
+  )}
+</Base>
+
+<script>
+  // Topic filter; ?topic=Travel in the address opens that topic directly
+  const grid = document.querySelector<HTMLElement>('.grid');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+
+  function apply(topic: string) {
+    if (!grid) return;
+    const known = [...buttons].some((b) => b.dataset.topic === topic);
+    const t = known ? topic : 'All';
+    grid.dataset.filter = t;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.topic === t)));
+    grid.querySelectorAll<HTMLElement>('.card').forEach((card) => {
+      card.hidden = t !== 'All' && card.dataset.topic !== t;
+    });
+  }
+
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const t = b.dataset.topic!;
+      apply(t);
+      const u = new URL(location.href);
+      if (t === 'All') u.searchParams.delete('topic');
+      else u.searchParams.set('topic', t);
+      history.replaceState(null, '', u);
+    }),
+  );
+
+  apply(new URLSearchParams(location.search).get('topic') ?? 'All');
+</script>

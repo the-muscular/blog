@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
+import site from '../data/site.json';
+import { url } from '../lib/url.mjs';
+
+interface Props {
+  title?: string;
+  description?: string;
+  mode?: 'home' | 'post';
+  noindex?: boolean;
+}
+const { title, description = site.intro, mode = 'home', noindex = false } = Astro.props;
+const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title ?? site.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={mode === 'post' ? 'article' : 'website'} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={url('/rss.xml')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=Gochi+Hand&display=swap" />
+  </head>
+  <body>
+    <div class:list={['wrap', { 'post-mode': mode !== 'home' }]}>
+      <slot name="head" />
+      <Sidebar />
+      <main class="main">
+        <slot />
+      </main>
+      <footer>
+        <span>© {new Date().getFullYear()} {site.title}</span>
+        <a href={url('/rss.xml')}>RSS feed</a>
+      </footer>
+    </div>
+  </body>
+</html>

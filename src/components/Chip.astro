@@ -1,0 +1,6 @@
+---
+import { topics } from '../lib/doodles.mjs';
+const { topic } = Astro.props;
+const colour = topics[topic]?.chip ?? 'wisteria';
+---
+<span class="chip" style={`background:var(--${colour})`}>{topic}</span>

@@ -1,0 +1,37 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import Chip from '../../components/Chip.astro';
+import site from '../../data/site.json';
+import { url } from '../../lib/url.mjs';
+import { getPosts, formatDate, excerptOf, readTime, coverImage } from '../../lib/posts.mjs';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { title, date, topic, doodle, colour, draft } = post.data;
+const { Content } = await render(post);
+---
+<Base title={title} description={excerptOf(post)} mode="post">
+  <article class="post">
+    <a class="back" href={url('/')}>← <em>{site.title}</em></a>
+    <div><Chip topic={topic} /></div>
+    <h1>{title}</h1>
+    <div class="meta">
+      <span>{formatDate(date)}</span><span>{readTime(post)} read</span>
+      {draft && <span class="draft">draft, not on the live site</span>}
+    </div>
+    <Cover topic={topic} doodle={doodle} colour={colour} image={coverImage(post)} alt="" />
+    <div class="prose">
+      <Content />
+    </div>
+    <div class="post-end">
+      <p>Thanks for reading.</p>
+      <a class="back" href={url(`/?topic=${encodeURIComponent(topic)}`)}>More {topic} posts →</a>
+    </div>
+  </article>
+</Base>
