@@ -266,10 +266,37 @@ footer { padding-top: 24px; border-top: 1px solid var(--line); font-size: 14px; 
   .socials .handle { display: none; }
 }
 @media (max-width: 640px) {
+  /* Phones: smaller reading text and tighter rhythm */
+  body { font-size: 15px; line-height: 1.55; }
+  .wrap, .post-mode { padding-block: 24px 40px; row-gap: 24px; }
+  .kicker { margin-bottom: 10px; }
+  .intro { font-size: 15px; margin-top: 14px; }
+  .side-inner { gap: 18px; }
+  .filters { margin-bottom: 18px; gap: 6px; }
+  .filters button { padding: 8px 12px; }
+  .grid { gap: 14px; }
+  .card-body { padding: 14px 16px 16px; gap: 8px; }
+  .card h3 { font-size: 19px; }
+  .card p { font-size: 14px; }
   .card.featured { grid-template-columns: 1fr; }
   .card.featured .cover { min-height: 0; aspect-ratio: 16 / 10; }
-  .card.featured .card-body { padding: 20px; }
-  .intro { font-size: 17px; }
+  .card.featured .card-body { padding: 16px; gap: 10px; }
+  .card.featured h3 { font-size: 24px; }
+  .card.featured p { font-size: 14px; }
+
+  .back { margin-bottom: 18px; font-size: 14px; }
+  .post h1, .page-h { margin: 12px 0 10px; }
+  .post .meta { margin-bottom: 20px; }
+  .post > .cover { margin-bottom: 24px; }
+  .prose { font-size: 16px; line-height: 1.65; }
+  .prose p { margin-bottom: 1em; }
+  .prose h2 { font-size: 21px; margin: 1.5em 0 .4em; }
+  .prose h3 { font-size: 18px; margin: 1.4em 0 .4em; }
+  .prose blockquote { padding: 18px 20px; font-size: 18px; margin: 1.4em 0; }
+  .prose blockquote::before { font-size: 38px; margin-bottom: 4px; }
+  .prose img, .prose figure { margin-block: 1.4em; }
+  .post-end { margin-top: 32px; padding-top: 18px; }
+  footer { padding-top: 18px; font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
