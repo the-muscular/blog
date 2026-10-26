@@ -8,7 +8,7 @@ import { getPosts } from '../lib/posts.mjs';
 const posts = await getPosts();
 const usedTopics = topicNames.filter((t) => posts.some((p) => p.data.topic === t));
 
-// The last word of the title gets the italic + squiggle treatment
+// The last word of the title is set in the accent colour
 const words = site.title.trim().split(/\s+/);
 const lastWord = words.pop();
 ---
@@ -16,7 +16,7 @@ const lastWord = words.pop();
   <header class="head" slot="head">
     {site.kicker && <p class="kicker">{site.kicker}</p>}
     <h1 class="title">
-      {words.join(' ')}{words.length > 0 && ' '}<em>{lastWord}<svg class="squiggle" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 12 Q 20 2 38 12 T 74 12 T 110 12 T 146 12 T 182 12 T 218 12 T 254 12 T 298 10" /></svg></em>
+      {words.join(' ')}{words.length > 0 && ' '}<span class="accent">{lastWord}</span>
     </h1>
     {site.intro && <p class="intro">{site.intro}</p>}
   </header>

@@ -18,7 +18,7 @@ const { Content } = await render(post);
 ---
 <Base title={title} description={excerptOf(post)} mode="post">
   <article class="post">
-    <a class="back" href={url('/')}>← <em>{site.title}</em></a>
+    <a class="back" href={url('/')}>← {site.title}</a>
     <div><Chip topic={topic} /></div>
     <h1>{title}</h1>
     <div class="meta">

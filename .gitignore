@@ -5,4 +5,4 @@ dist/
 .DS_Store
 
 # Design prototype (kept locally, not published)
-blog-prototype.html
+blog-prototype*.html

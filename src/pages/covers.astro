@@ -23,7 +23,7 @@ import { url } from '../lib/url.mjs';
       <div class="thumbs">
         {keys.map((k) => (
           <figure class="thumb">
-            <div class="cover" set:html={coverSvg({ topic: 'Journal', doodle: k, colour: 'latte' })} />
+            <div class="cover" set:html={coverSvg({ topic: 'Journal', doodle: k, colour: 'light' })} />
             <figcaption>{doodles[k].name}</figcaption>
           </figure>
         ))}

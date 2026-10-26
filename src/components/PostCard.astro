@@ -9,8 +9,10 @@ const { title, date, topic, doodle, colour, draft } = post.data;
 <a class:list={['card', { featured }]} href={postUrl(post)} data-topic={topic}>
   <Cover topic={topic} doodle={doodle} colour={colour} image={coverImage(post)} />
   <div class="card-body">
-    {featured && <span class="new">latest ✶</span>}
-    <Chip topic={topic} />
+    <div class="head-row">
+      {featured && <span class="new">Latest</span>}
+      <Chip topic={topic} />
+    </div>
     <h3>{title}</h3>
     <p>{excerptOf(post)}</p>
     <div class="meta">

@@ -4,7 +4,9 @@
 const S = 'style="fill:none;stroke:var(--on-pop);stroke-width:3;stroke-linecap:round;stroke-linejoin:round"';
 const f = c => `style="fill:var(--${c})"`;
 const fs = c => `style="fill:var(--${c});stroke:var(--on-pop);stroke-width:3;stroke-linejoin:round"`;
-const svg = (bg, inner) => `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="200" ${f(bg)}/>${inner}</svg>`;
+// On the two dark cover colours the outlines switch to white
+const darkCovers = ['blue', 'navy'];
+const svg = (bg, inner) => `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"${darkCovers.includes(bg) ? ' style="--on-pop:#FFFFFF"' : ''}><rect width="320" height="200" ${f(bg)}/>${inner}</svg>`;
 
 export const doodles = {
   // Everyday
@@ -76,22 +78,27 @@ export const doodleGroups = [
   ['Politics', ['ballot', 'megaphone', 'newspaper', 'speech', 'scales']]
 ];
 
-// The 12 cover colours (CSS variable name, label)
+// The cover colours (CSS variable name, label)
 export const colours = [
-  ['wisteria', 'Wisteria'], ['milk', 'Milkshake'], ['slipper', 'Ballet slipper'], ['latte', 'Latte'],
-  ['seafoam', 'Seafoam'], ['rainy', 'Rainy day'], ['attic', 'Attic window'], ['butter', 'Butter yellow'],
-  ['apricot', 'Apricot jam'], ['matcha', 'Matcha'], ['clover', 'Clover'], ['cherry', 'Cherry']
+  ['white', 'White'], ['light', 'Light blue'], ['mist', 'Lime mist'], ['peach', 'Peach'],
+  ['green', 'Green'], ['orange', 'Orange'], ['blue', 'Blue'], ['navy', 'Dark blue']
 ];
 
 // Topics in the order they appear in the filter. `doodle` and `bg` are the default cover.
 export const topics = {
-  Travel:   { chip: 'rainy',    doodle: 'plane',   bg: 'seafoam' },
-  Music:    { chip: 'wisteria', doodle: 'vinyl',   bg: 'wisteria' },
-  Movies:   { chip: 'slipper',  doodle: 'popcorn', bg: 'milk' },
-  Family:   { chip: 'apricot',  doodle: 'house',   bg: 'butter' },
-  Likes:    { chip: 'attic',    doodle: 'heart',   bg: 'slipper' },
-  Journal:  { chip: 'matcha',   doodle: 'journal', bg: 'latte' },
-  Politics: { chip: 'clover',   doodle: 'ballot',  bg: 'rainy' }
+  Travel:   { chip: 'blue',   doodle: 'plane',   bg: 'light' },
+  Music:    { chip: 'green',  doodle: 'vinyl',   bg: 'green' },
+  Movies:   { chip: 'navy',   doodle: 'popcorn', bg: 'navy' },
+  Family:   { chip: 'orange', doodle: 'house',   bg: 'peach' },
+  Likes:    { chip: 'blue',   doodle: 'heart',   bg: 'blue' },
+  Journal:  { chip: 'green',  doodle: 'journal', bg: 'mist' },
+  Politics: { chip: 'orange', doodle: 'ballot',  bg: 'orange' }
+};
+
+// Colour names from the first design, so older posts keep a sensible cover
+export const legacyColours = {
+  wisteria: 'light', milk: 'peach', slipper: 'peach', latte: 'light', seafoam: 'light', rainy: 'light',
+  attic: 'blue', butter: 'green', apricot: 'orange', matcha: 'mist', clover: 'green', cherry: 'orange'
 };
 
 export const topicNames = Object.keys(topics);
@@ -102,6 +109,7 @@ export const colourKeys = colours.map(([key]) => key);
 export function coverSvg({ topic, doodle, colour }) {
   const t = topics[topic] ?? topics.Journal;
   const d = doodles[doodle] ? doodle : t.doodle;
-  const bg = colourKeys.includes(colour) ? colour : t.bg;
+  const c = legacyColours[colour] ?? colour;
+  const bg = colourKeys.includes(c) ? c : t.bg;
   return svg(bg, doodles[d].d);
 }

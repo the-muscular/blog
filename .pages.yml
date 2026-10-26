@@ -131,30 +131,22 @@ content:
         type: select
         options:
           values:
-            - name: "wisteria"
-              label: "Wisteria"
-            - name: "milk"
-              label: "Milkshake"
-            - name: "slipper"
-              label: "Ballet slipper"
-            - name: "latte"
-              label: "Latte"
-            - name: "seafoam"
-              label: "Seafoam"
-            - name: "rainy"
-              label: "Rainy day"
-            - name: "attic"
-              label: "Attic window"
-            - name: "butter"
-              label: "Butter yellow"
-            - name: "apricot"
-              label: "Apricot jam"
-            - name: "matcha"
-              label: "Matcha"
-            - name: "clover"
-              label: "Clover"
-            - name: "cherry"
-              label: "Cherry"
+            - name: "white"
+              label: "White"
+            - name: "light"
+              label: "Light blue"
+            - name: "mist"
+              label: "Lime mist"
+            - name: "peach"
+              label: "Peach"
+            - name: "green"
+              label: "Green"
+            - name: "orange"
+              label: "Orange"
+            - name: "blue"
+              label: "Blue"
+            - name: "navy"
+              label: "Dark blue"
       - name: cover_image
         label: Cover photo
         description: Optional. Replaces the illustration with a photo. Most posts don't need one.
@@ -192,7 +184,7 @@ content:
         label: Short bio in the sidebar
         type: text
       - name: sticker
-        label: Sticker text
+        label: Note under your links
         type: string
       - name: socials
         label: Social links
@@ -203,7 +195,7 @@ content:
             label: Network
             type: select
             options:
-              values: ["instagram","x","linkedin","pinterest","tiktok","youtube","spotify","letterboxd","email","website"]
+              values: ["instagram","twitter","x","linkedin","pinterest","tiktok","youtube","spotify","letterboxd","email","website"]
           - name: url
             label: Link
             description: Full address, e.g. https://instagram.com/yourname, or mailto:you@example.com for email.
